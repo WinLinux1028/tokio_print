@@ -26,7 +26,7 @@ lazy_static! {
 macro_rules! aprintln {
     () => (tokio_print::aprint1("\n").await);
     ($fmt:expr) => (tokio_print::aprint1(concat!($fmt, "\n")).await);
-    ($fmt:expr, $($arg:tt)*) => (tokio_print::aprint1(&format!(concat!($fmt, "\n"), $($arg)*)).await);
+    ($fmt:expr, $($arg:tt)*) => (tokio_print::aprint1(&(format!($fmt, $($arg)*)+"\n")).await);
 }
 
 /// # Async version of eprintln!
@@ -46,7 +46,7 @@ macro_rules! aprintln {
 macro_rules! aeprintln {
     () => (tokio_print::aeprint1("\n").await);
     ($fmt:expr) => (tokio_print::aeprint1(concat!($fmt, "\n")).await);
-    ($fmt:expr, $($arg:tt)*) => (tokio_print::aeprint1(&format!(concat!($fmt, "\n"), $($arg)*)).await);
+    ($fmt:expr, $($arg:tt)*) => (tokio_print::aeprint1(&(format!($fmt, $($arg)*)+"\n")).await);
 }
 
 /// # Async version of print!
